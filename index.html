@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 07 - Web Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="calculator">
+        <header>
+            <h2>Web Calculator</h2>
+            <button id="menuButton" class="menu-button" onclick="toggleMenu()" aria-label="Open menu" aria-expanded="false">&#8942;</button>
+            <nav id="menu" class="menu hidden">
+                <button onclick="showPanel('basic')">Basic Calculator</button>
+                <button onclick="showPanel('scientific')">Scientific Mode</button>
+                <button onclick="showPanel('unit')">Unit Conversion</button>
+                <button onclick="showPanel('currency')">Currency Conversion</button>
+            </nav>
+        </header>
+
+        <section id="calculatorPanel">
+            <p id="modeTitle">Basic Calculator</p>
+            <div id="history"></div>
+            <input id="display" type="text" value="0" aria-label="Calculator result" readonly>
+
+            <div class="buttons">
+                <button class="special" onclick="clearAll()">C</button>
+                <button class="special" onclick="backspace()">DEL</button>
+                <button class="operator" onclick="setOperation('/')">÷</button>
+                <button class="operator" onclick="setOperation('*')">×</button>
+
+                <button onclick="pressNumber('7')">7</button>
+                <button onclick="pressNumber('8')">8</button>
+                <button onclick="pressNumber('9')">9</button>
+                <button class="operator" onclick="setOperation('-')">−</button>
+
+                <button onclick="pressNumber('4')">4</button>
+                <button onclick="pressNumber('5')">5</button>
+                <button onclick="pressNumber('6')">6</button>
+                <button class="operator" onclick="setOperation('+')">+</button>
+
+                <button onclick="pressNumber('1')">1</button>
+                <button onclick="pressNumber('2')">2</button>
+                <button onclick="pressNumber('3')">3</button>
+                <button class="equals" onclick="calculate()">=</button>
+
+                <button class="wide" onclick="pressNumber('0')">0</button>
+                <button onclick="pressNumber('.')">.</button>
+            </div>
+
+            <div id="scientificPanel" class="hidden">
+                <h3>Scientific Functions</h3>
+                <div class="scientific-buttons">
+                    <button onclick="scientific('sqrt')">√x</button>
+                    <button onclick="scientific('square')">x²</button>
+                    <button onclick="setOperation('^')">xʸ</button>
+                    <button onclick="scientific('sin')">sin</button>
+                    <button onclick="scientific('cos')">cos</button>
+                    <button onclick="scientific('tan')">tan</button>
+                </div>
+                <small>Trigonometric functions use degrees.</small>
+            </div>
+        </section>
+
+        <section id="unitPanel" class="hidden">
+            <h3>Unit Conversion</h3>
+            <label for="unitValue">Enter a value</label>
+            <input id="unitValue" type="number" value="1" step="any">
+            <label for="unitType">Choose conversion</label>
+            <select id="unitType">
+                <option value="m-ft">Meters to Feet</option>
+                <option value="ft-m">Feet to Meters</option>
+                <option value="kg-lb">Kilograms to Pounds</option>
+                <option value="lb-kg">Pounds to Kilograms</option>
+                <option value="c-f">Celsius to Fahrenheit</option>
+                <option value="f-c">Fahrenheit to Celsius</option>
+            </select>
+            <button class="action" onclick="convertUnit()">Convert</button>
+            <p id="unitResult" class="result" aria-live="polite"></p>
+        </section>
+
+        <section id="currencyPanel" class="hidden">
+            <h3>Currency Conversion</h3>
+            <label for="currencyValue">Enter an amount</label>
+            <input id="currencyValue" type="number" value="1" min="0" step="any">
+            <label for="fromCurrency">From</label>
+            <select id="fromCurrency">
+                <option value="USD">USD - US Dollar</option>
+                <option value="PKR">PKR - Pakistani Rupee</option>
+                <option value="EUR">EUR - Euro</option>
+                <option value="GBP">GBP - British Pound</option>
+            </select>
+            <label for="toCurrency">To</label>
+            <select id="toCurrency">
+                <option value="PKR">PKR - Pakistani Rupee</option>
+                <option value="USD">USD - US Dollar</option>
+                <option value="EUR">EUR - Euro</option>
+                <option value="GBP">GBP - British Pound</option>
+            </select>
+            <button class="action" onclick="convertCurrency()">Convert</button>
+            <p id="currencyResult" class="result" aria-live="polite"></p>
+            <small id="rateStatus">Loading exchange rates...</small>
+            <small>Live rates provided by <a href="https://www.exchangerate-api.com" target="_blank" rel="noopener noreferrer">ExchangeRate-API</a>.</small>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
